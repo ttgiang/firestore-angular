@@ -9,22 +9,26 @@
 
   <tbody>
     <tr *ngFor="let order of coffeeOrders">
-      <td>
+      <td style="vertical-align: top">
         {{ order.payload.doc.data().orderNumber }}
       </td>
-      <td>{{ order.payload.doc.data().customerName }}</td>
-      <td>
-        <span *ngFor="let coffee of order.payload.doc.data().coffeeOrder">
-          {{ coffee }}
-        </span>
+      <td style="vertical-align: top">
+        {{ order.payload.doc.data().customerName }}
+      </td>
+      <td style="vertical-align: top">
+        <ul *ngFor="let coffee of order.payload.doc.data().coffeeOrder">
+          <li>{{ coffee }}</li>
+        </ul>
       </td>
       <td
+        style="vertical-align: top"
         [hidden]="order.payload.doc.data().completed"
         (click)="markCompleted(order)"
       >
         <i class="material-icons">check</i>
       </td>
       <td
+        style="vertical-align: top"
         [hidden]="order.payload.doc.data().completed"
         (click)="deleteOrder(order)"
       >

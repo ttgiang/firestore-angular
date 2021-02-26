@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from "@angular/forms";
 import { AngularFirestore } from "@angular/fire/firestore";
 
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class OrdersService {
   constructor(private firestore: AngularFirestore) {}
@@ -12,7 +12,7 @@ export class OrdersService {
     customerName: new FormControl(""),
     orderNumber: new FormControl(""),
     coffeeOrder: new FormControl(""),
-    completed: new FormControl(false)
+    completed: new FormControl(false),
   });
 
   //Firestore CRUD actions example
@@ -21,7 +21,10 @@ export class OrdersService {
       this.firestore
         .collection("coffeeOrders")
         .add(data)
-        .then(res => {}, err => reject(err));
+        .then(
+          (res) => {},
+          (err) => reject(err)
+        );
     });
   }
 
@@ -33,7 +36,38 @@ export class OrdersService {
   }
 
   getCoffeeOrders() {
-    return this.firestore.collection("coffeeOrders").snapshotChanges();
+    // ref.where('state', '>=', 'CA').where('population', '>', 100000)
+    // ref.where("population", ">", 100000).orderBy("country");
+    // ref.where('tags.awesome', '==', true).orderBy('population')
+
+    /*
+    https://github.com/angular/angularfire/blob/master/docs/firestore/querying-collections.md
+
+    Dynamic querying
+
+    const size$ = new Subject<string>();
+    const queryObservable = size$.pipe(
+      switchMap(size => 
+        afs.collection('items', ref => ref.where('size', '==', size)).valueChanges()
+      )
+    );
+
+    // subscribe to changes
+    queryObservable.subscribe(queriedItems => {
+      console.log(queriedItems);  
+    });
+
+    // trigger the query
+    size$.next('large');
+
+    // re-trigger the query!!!
+    size$.next('small');
+    */
+
+    //afs.collection('items', ref => ref.where('size', '==', 'large'))
+    return this.firestore
+      .collection("coffeeOrders", (ref) => ref.orderBy("orderNumber", "desc"))
+      .snapshotChanges();
   }
 
   deleteCoffeeOrder(data) {

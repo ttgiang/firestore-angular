@@ -4,7 +4,7 @@ import { OrdersService } from "../shared/orders.service";
 @Component({
   selector: "app-order-list",
   templateUrl: "./order-list.component.html",
-  styleUrls: ["./order-list.component.scss"]
+  styleUrls: ["./order-list.component.scss"],
 })
 export class OrderListComponent implements OnInit {
   constructor(private ordersService: OrdersService) {}
@@ -18,9 +18,9 @@ export class OrderListComponent implements OnInit {
   getCoffeeOrders = () =>
     this.ordersService
       .getCoffeeOrders()
-      .subscribe(res => (this.coffeeOrders = res));
+      .subscribe((res) => (this.coffeeOrders = res));
 
-  deleteOrder = data => this.ordersService.deleteCoffeeOrder(data);
+  deleteOrder = (data) => this.ordersService.deleteCoffeeOrder(data);
 
-  markCompleted = data => this.ordersService.updateCoffeeOrder(data);
+  markCompleted = (data) => this.ordersService.updateCoffeeOrder(data);
 }
