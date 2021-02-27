@@ -9,11 +9,11 @@ import { OrdersService } from "../shared/orders.service";
 export class OrderListComponent implements OnInit {
   constructor(private ordersService: OrdersService) {}
 
+  coffeeOrders;
+
   ngOnInit() {
     this.getCoffeeOrders();
   }
-
-  coffeeOrders;
 
   getCoffeeOrders = () =>
     this.ordersService
